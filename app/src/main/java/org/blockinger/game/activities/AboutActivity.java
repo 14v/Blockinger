@@ -21,15 +21,15 @@
 
     Diese Datei ist Teil von Blockinger.
 
-    Blockinger ist Freie Software: Sie können es unter den Bedingungen
+    Blockinger ist Freie Software: Sie kÃ¶nnen es unter den Bedingungen
     der GNU General Public License, wie von der Free Software Foundation,
-    Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren
-    veröffentlichten Version, weiterverbreiten und/oder modifizieren.
+    Version 3 der Lizenz oder (nach Ihrer Option) jeder spÃ¤teren
+    verÃ¶ffentlichten Version, weiterverbreiten und/oder modifizieren.
 
-    Blockinger wird in der Hoffnung, dass es nützlich sein wird, aber
-    OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
-    Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
-    Siehe die GNU General Public License für weitere Details.
+    Blockinger wird in der Hoffnung, dass es nÃ¼tzlich sein wird, aber
+    OHNE JEDE GEWÃ„HELEISTUNG, bereitgestellt; sogar ohne die implizite
+    GewÃ¤hrleistung der MARKTFÃ„HIGKEIT oder EIGNUNG FÃœR EINEN BESTIMMTEN ZWECK.
+    Siehe die GNU General Public License fÃ¼r weitere Details.
 
     Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
@@ -65,13 +65,13 @@ public class AboutActivity extends PreferenceActivity {
 	        ActionBar actionBar = getActionBar();
 	        actionBar.setDisplayHomeAsUpEnabled(true);
 	    }
-		
+
 
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
-        
+
         Preference pref = findPreference("pref_license");
         pref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-			
+
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
 				String url = getResources().getString(R.string.license_url);
@@ -81,7 +81,7 @@ public class AboutActivity extends PreferenceActivity {
 				return true;
 			}
 		});
-        
+
         pref = findPreference("pref_license_music");
         pref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
@@ -94,10 +94,10 @@ public class AboutActivity extends PreferenceActivity {
 				return true;
 			}
 		});
-        
+
         pref = findPreference("pref_version");
         pref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-			
+
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
 				String url = getResources().getString(R.string.repository_url);
@@ -107,10 +107,10 @@ public class AboutActivity extends PreferenceActivity {
 				return true;
 			}
 		});
-        
+
         pref = findPreference("pref_author");
         pref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-			
+
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
 				Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -120,13 +120,13 @@ public class AboutActivity extends PreferenceActivity {
 				return true;
 			}
 		});
-		
+
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		finish();
 		return true;
 	}
-	
+
 }

@@ -21,15 +21,15 @@
 
     Diese Datei ist Teil von Blockinger.
 
-    Blockinger ist Freie Software: Sie können es unter den Bedingungen
+    Blockinger ist Freie Software: Sie kÃ¶nnen es unter den Bedingungen
     der GNU General Public License, wie von der Free Software Foundation,
-    Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren
-    veröffentlichten Version, weiterverbreiten und/oder modifizieren.
+    Version 3 der Lizenz oder (nach Ihrer Option) jeder spÃ¤teren
+    verÃ¶ffentlichten Version, weiterverbreiten und/oder modifizieren.
 
-    Blockinger wird in der Hoffnung, dass es nützlich sein wird, aber
-    OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
-    Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
-    Siehe die GNU General Public License für weitere Details.
+    Blockinger wird in der Hoffnung, dass es nÃ¼tzlich sein wird, aber
+    OHNE JEDE GEWÃ„HELEISTUNG, bereitgestellt; sogar ohne die implizite
+    GewÃ¤hrleistung der MARKTFÃ„HIGKEIT oder EIGNUNG FÃœR EINEN BESTIMMTEN ZWECK.
+    Siehe die GNU General Public License fÃ¼r weitere Details.
 
     Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
@@ -60,7 +60,7 @@ public class AdvancedSettingsActivity extends PreferenceActivity implements OnSh
 		super.onPostCreate(savedInstanceState);
 
 		addPreferencesFromResource(R.xml.advanced_preferences);
-		
+
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 	        ActionBar actionBar = getActionBar();
 	        actionBar.setDisplayHomeAsUpEnabled(true);
@@ -73,7 +73,7 @@ public class AdvancedSettingsActivity extends PreferenceActivity implements OnSh
         	pref.setSummary(getResources().getStringArray(R.array.randomizer_preference_array)[0]);//"7-Bag-Randomization");
         else
         	pref.setSummary(getResources().getStringArray(R.array.randomizer_preference_array)[1]);
-        
+
         pref = findPreference("pref_fpslimittext");
         pref.setSummary(PreferenceManager.getDefaultSharedPreferences(this).getString("pref_fpslimittext", ""));
 	}
@@ -96,20 +96,20 @@ public class AdvancedSettingsActivity extends PreferenceActivity implements OnSh
             connectionPref.setSummary(sharedPreferences.getString(key, ""));
         }
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		finish();
 		return true;
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onResume() {
 	    super.onResume();
 	    getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onPause() {

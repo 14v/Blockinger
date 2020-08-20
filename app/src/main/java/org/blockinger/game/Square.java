@@ -21,15 +21,15 @@
 
     Diese Datei ist Teil von Blockinger.
 
-    Blockinger ist Freie Software: Sie können es unter den Bedingungen
+    Blockinger ist Freie Software: Sie kÃ¶nnen es unter den Bedingungen
     der GNU General Public License, wie von der Free Software Foundation,
-    Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren
-    veröffentlichten Version, weiterverbreiten und/oder modifizieren.
+    Version 3 der Lizenz oder (nach Ihrer Option) jeder spÃ¤teren
+    verÃ¶ffentlichten Version, weiterverbreiten und/oder modifizieren.
 
-    Blockinger wird in der Hoffnung, dass es nützlich sein wird, aber
-    OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
-    Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
-    Siehe die GNU General Public License für weitere Details.
+    Blockinger wird in der Hoffnung, dass es nÃ¼tzlich sein wird, aber
+    OHNE JEDE GEWÃ„HELEISTUNG, bereitgestellt; sogar ohne die implizite
+    GewÃ¤hrleistung der MARKTFÃ„HIGKEIT oder EIGNUNG FÃœR EINEN BESTIMMTEN ZWECK.
+    Siehe die GNU General Public License fÃ¼r weitere Details.
 
     Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
@@ -52,7 +52,7 @@ public class Square {
 	public static final int type_green = 5;
 	public static final int type_magenta = 6;
 	public static final int type_cyan = 7;
-	
+
 	private int type;
 	private Paint paint;
 	private Bitmap bm;
@@ -62,7 +62,7 @@ public class Square {
 	//private Context context;
 	private int squaresize;
 	private int phantomAlpha;
-	
+
 	public Square(int type, Context c) {
 		this.type = type;
 		paint = new Paint();
@@ -97,11 +97,11 @@ public class Square {
 				break;
 		}
 	}
-	
+
 	public void reDraw(int ss) {
 		if(type == type_empty)
 			return;
-		
+
 		squaresize = ss;
 		bm = Bitmap.createBitmap(ss, ss, Bitmap.Config.ARGB_8888);
 		phantomBM = Bitmap.createBitmap(ss, ss, Bitmap.Config.ARGB_8888);
@@ -114,25 +114,25 @@ public class Square {
 		phantomCanv.drawRect(0, 0, squaresize, squaresize, paint);
 		//canv.draw
 	}
-	
+
 	public Square clone(Context c) {
 		return new Square(type, c);
 	}
-	
+
 	public boolean isEmpty() {
 		if(type == type_empty)
 			return true;
-		else 
+		else
 			return false;
 	}
 
 	public void draw(int x, int y, int squareSize, Canvas c, boolean isPhantom) { // top left corner of square
 		if(type == type_empty)
 			return;
-		
+
 		if(squareSize != squaresize)
 			reDraw(squareSize);
-		
+
 		if(isPhantom) {
 			c.drawBitmap(phantomBM, x, y, null);
 		} else {

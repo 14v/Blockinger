@@ -21,15 +21,15 @@
 
     Diese Datei ist Teil von Blockinger.
 
-    Blockinger ist Freie Software: Sie können es unter den Bedingungen
+    Blockinger ist Freie Software: Sie kÃ¶nnen es unter den Bedingungen
     der GNU General Public License, wie von der Free Software Foundation,
-    Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren
-    veröffentlichten Version, weiterverbreiten und/oder modifizieren.
+    Version 3 der Lizenz oder (nach Ihrer Option) jeder spÃ¤teren
+    verÃ¶ffentlichten Version, weiterverbreiten und/oder modifizieren.
 
-    Blockinger wird in der Hoffnung, dass es nützlich sein wird, aber
-    OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
-    Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
-    Siehe die GNU General Public License für weitere Details.
+    Blockinger wird in der Hoffnung, dass es nÃ¼tzlich sein wird, aber
+    OHNE JEDE GEWÃ„HELEISTUNG, bereitgestellt; sogar ohne die implizite
+    GewÃ¤hrleistung der MARKTFÃ„HIGKEIT oder EIGNUNG FÃœR EINEN BESTIMMTEN ZWECK.
+    Siehe die GNU General Public License fÃ¼r weitere Details.
 
     Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
@@ -50,7 +50,7 @@ import android.view.SurfaceHolder.Callback;
 public class BlockBoardView extends SurfaceView implements Callback {
 
 	private GameActivity host;
-	
+
 	public BlockBoardView(Context context) {
 		super(context);
 	}
@@ -62,11 +62,11 @@ public class BlockBoardView extends SurfaceView implements Callback {
 	public BlockBoardView(Context context, AttributeSet attrs, int defStyle) {
 		super(context,attrs,defStyle);
 	}
-	
+
 	public void setHost(GameActivity ga) {
 		host = ga;
 	}
-	
+
 	public void init() {
 		setZOrderOnTop(true);
 		getHolder().addCallback(this);
@@ -75,7 +75,7 @@ public class BlockBoardView extends SurfaceView implements Callback {
 
 	@Override
 	public void surfaceChanged(SurfaceHolder arg0, int arg1, int arg2, int arg3) {
-		
+
 	}
 
 	@Override

@@ -21,15 +21,15 @@
 
     Diese Datei ist Teil von Blockinger.
 
-    Blockinger ist Freie Software: Sie können es unter den Bedingungen
+    Blockinger ist Freie Software: Sie kÃ¶nnen es unter den Bedingungen
     der GNU General Public License, wie von der Free Software Foundation,
-    Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren
-    veröffentlichten Version, weiterverbreiten und/oder modifizieren.
+    Version 3 der Lizenz oder (nach Ihrer Option) jeder spÃ¤teren
+    verÃ¶ffentlichten Version, weiterverbreiten und/oder modifizieren.
 
-    Blockinger wird in der Hoffnung, dass es nützlich sein wird, aber
-    OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
-    Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
-    Siehe die GNU General Public License für weitere Details.
+    Blockinger wird in der Hoffnung, dass es nÃ¼tzlich sein wird, aber
+    OHNE JEDE GEWÃ„HELEISTUNG, bereitgestellt; sogar ohne die implizite
+    GewÃ¤hrleistung der MARKTFÃ„HIGKEIT oder EIGNUNG FÃœR EINEN BESTIMMTEN ZWECK.
+    Siehe die GNU General Public License fÃ¼r weitere Details.
 
     Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
@@ -43,7 +43,7 @@ import org.blockinger.game.components.Board;
 import android.content.Context;
 
 public abstract class Piece3x3 extends Piece {
-	
+
 	/**
 	 * Always call super(); first.
 	 * @param width
@@ -52,7 +52,7 @@ public abstract class Piece3x3 extends Piece {
 	protected Piece3x3(Context c) {
 		super(c,3);
 	}
-	
+
 	/**
 	 * @return true if rotation was successfull.
 	 */
@@ -71,11 +71,11 @@ public abstract class Piece3x3 extends Piece {
 		rotated[0][0] = pattern[0][2];
 		rotated[0][1] = pattern[1][2];
 		rotated[0][2] = pattern[2][2];
-		
+
 		rotated[1][0] = pattern[0][1];
 		rotated[1][1] = pattern[1][1]; //center stays identical
 		rotated[1][2] = pattern[2][1];
-		
+
 		rotated[2][0] = pattern[0][0];
 		rotated[2][1] = pattern[1][0];
 		rotated[2][2] = pattern[2][0];
@@ -101,11 +101,11 @@ public abstract class Piece3x3 extends Piece {
 				}
 			}
 		}
-		
+
 		backup = pattern;
 		pattern = rotated;
 		rotated = backup;
-		
+
 		// try to correct border violations
 		if(maxBottomOffset < 1) {
 			if(maxLeftOffset < 1)  {
@@ -162,11 +162,11 @@ public abstract class Piece3x3 extends Piece {
 		rotated[0][0] = pattern[2][0];
 		rotated[0][1] = pattern[1][0];
 		rotated[0][2] = pattern[0][0];
-		
+
 		rotated[1][0] = pattern[2][1];
 		rotated[1][1] = pattern[1][1]; //center stays identical
 		rotated[1][2] = pattern[0][1];
-		
+
 		rotated[2][0] = pattern[2][2];
 		rotated[2][1] = pattern[1][2];
 		rotated[2][2] = pattern[0][2];
@@ -193,11 +193,11 @@ public abstract class Piece3x3 extends Piece {
 				}
 			}
 		}
-		
+
 		backup = pattern;
 		pattern = rotated;
 		rotated = backup;
-		
+
 		// try to correct border violations
 		if(maxBottomOffset < 1) {
 			if(maxLeftOffset < 1)  {

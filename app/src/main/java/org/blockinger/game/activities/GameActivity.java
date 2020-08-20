@@ -21,15 +21,15 @@ b * Copyright 2013 Simon Willeke
 
     Diese Datei ist Teil von Blockinger.
 
-    Blockinger ist Freie Software: Sie können es unter den Bedingungen
+    Blockinger ist Freie Software: Sie kÃ¶nnen es unter den Bedingungen
     der GNU General Public License, wie von der Free Software Foundation,
-    Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren
-    veröffentlichten Version, weiterverbreiten und/oder modifizieren.
+    Version 3 der Lizenz oder (nach Ihrer Option) jeder spÃ¤teren
+    verÃ¶ffentlichten Version, weiterverbreiten und/oder modifizieren.
 
-    Blockinger wird in der Hoffnung, dass es nützlich sein wird, aber
-    OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
-    Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
-    Siehe die GNU General Public License für weitere Details.
+    Blockinger wird in der Hoffnung, dass es nÃ¼tzlich sein wird, aber
+    OHNE JEDE GEWÃ„HELEISTUNG, bereitgestellt; sogar ohne die implizite
+    GewÃ¤hrleistung der MARKTFÃ„HIGKEIT oder EIGNUNG FÃœR EINEN BESTIMMTEN ZWECK.
+    Siehe die GNU General Public License fÃ¼r weitere Details.
 
     Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
@@ -71,7 +71,7 @@ public class GameActivity extends FragmentActivity {
 
 	public static final int NEW_GAME = 0;
 	public static final int RESUME_GAME = 1;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -87,14 +87,14 @@ public class GameActivity extends FragmentActivity {
 		/* Read Starting Arguments */
 		Bundle b = getIntent().getExtras();
 		int value = NEW_GAME;
-		
+
 		/* Create Components */
 		game = (GameState)getLastCustomNonConfigurationInstance();
 		if(game == null) {
 			/* Check for Resuming (or Resumption?) */
 			if(b!=null)
 				value = b.getInt("mode");
-				
+
 			if((value == NEW_GAME)) {
 				game = GameState.getNewInstance(this);
 				game.setLevel(b.getInt("level"));
@@ -106,7 +106,7 @@ public class GameActivity extends FragmentActivity {
 		controls = new Controls(this);
 		display = new Display(this);
 		sound = new Sound(this);
-		
+
 		/* Init Components */
 		if(game.isResumable())
 			sound.startMusic(Sound.GAME_MUSIC, game.getSongtime());
@@ -115,12 +115,12 @@ public class GameActivity extends FragmentActivity {
 			value = b.getInt("mode");
 			if(b.getString("playername") != null)
 				game.setPlayerName(b.getString("playername"));
-		} else 
+		} else
 			game.setPlayerName(getResources().getString(R.string.anonymous));
 		dialog.setCancelable(false);
 		if(!game.isResumable())
 			gameOver(game.getScore(), game.getTimeString(), game.getAPM());
-		
+
 		/* Register Button callback Methods */
 		((Button)findViewById(R.id.pausebutton_1)).setOnClickListener(new OnClickListener() {
 			@Override
@@ -221,13 +221,13 @@ public class GameActivity extends FragmentActivity {
 		((BlockBoardView)findViewById(R.id.boardView)).init();
 		((BlockBoardView)findViewById(R.id.boardView)).setHost(this);
 	}
-	
+
 	/**
 	 * Called by BlockBoardView upon completed creation
 	 * @param caller
 	 */
 	public void startGame(BlockBoardView caller){
-		mainThread = new WorkThread(this, caller.getHolder()); 
+		mainThread = new WorkThread(this, caller.getHolder());
 		mainThread.setFirstTime(false);
 		game.setRunning(true);
 		mainThread.setRunning(true);
@@ -245,11 +245,11 @@ public class GameActivity extends FragmentActivity {
             	mainThread.join();
                 retry = false;
             } catch (InterruptedException e) {
-                
+
             }
         }
 	}
-	
+
 	/**
 	 * Called by GameState upon Defeat
 	 * @param score
@@ -258,15 +258,15 @@ public class GameActivity extends FragmentActivity {
 		String playerName = game.getPlayerName();
 		if(playerName == null || playerName.equals(""))
 			playerName = getResources().getString(R.string.anonymous);//"Anonymous";
-		
+
 		Intent data = new Intent();
 		data.putExtra(MainActivity.PLAYERNAME_KEY, playerName);
 		data.putExtra(MainActivity.SCORE_KEY, score);
 		setResult(MainActivity.RESULT_OK, data);
-		
+
 		finish();
 	}
-	
+
 	@Override
 	protected void onPause() {
     	super.onPause();
@@ -274,14 +274,14 @@ public class GameActivity extends FragmentActivity {
     	sound.setInactive(true);
     	game.setRunning(false);
 	};
-    
+
     @Override
     protected void onStop() {
     	super.onStop();
     	sound.pause();
     	sound.setInactive(true);
     };
-    
+
     @Override
     protected void onDestroy() {
     	super.onDestroy();
@@ -290,13 +290,13 @@ public class GameActivity extends FragmentActivity {
     	sound = null;
     	game.disconnect();
     };
-    
+
     @Override
     protected void onResume() {
     	super.onResume();
     	sound.resume();
     	sound.setInactive(false);
-    	
+
     	/* Check for changed Layout */
     	boolean tempswap = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_layoutswap", false);
 		if(layoutSwap != tempswap) {
@@ -309,12 +309,12 @@ public class GameActivity extends FragmentActivity {
 		}
     	game.setRunning(true);
     };
-    
+
     @Override
     public Object onRetainCustomNonConfigurationInstance () {
         return game;
     }
-	
+
 	public void gameOver(long score, String gameTime, int apm) {
 		dialog.setData(score, gameTime, apm);
 		dialog.show(getSupportFragmentManager(), "hamster");

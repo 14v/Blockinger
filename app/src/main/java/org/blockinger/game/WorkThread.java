@@ -21,15 +21,15 @@
 
     Diese Datei ist Teil von Blockinger.
 
-    Blockinger ist Freie Software: Sie können es unter den Bedingungen
+    Blockinger ist Freie Software: Sie kÃ¶nnen es unter den Bedingungen
     der GNU General Public License, wie von der Free Software Foundation,
-    Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren
-    veröffentlichten Version, weiterverbreiten und/oder modifizieren.
+    Version 3 der Lizenz oder (nach Ihrer Option) jeder spÃ¤teren
+    verÃ¶ffentlichten Version, weiterverbreiten und/oder modifizieren.
 
-    Blockinger wird in der Hoffnung, dass es nützlich sein wird, aber
-    OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
-    Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
-    Siehe die GNU General Public License für weitere Details.
+    Blockinger wird in der Hoffnung, dass es nÃ¼tzlich sein wird, aber
+    OHNE JEDE GEWÃ„HELEISTUNG, bereitgestellt; sogar ohne die implizite
+    GewÃ¤hrleistung der MARKTFÃ„HIGKEIT oder EIGNUNG FÃœR EINEN BESTIMMTEN ZWECK.
+    Siehe die GNU General Public License fÃ¼r weitere Details.
 
     Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
@@ -44,9 +44,9 @@ import android.preference.PreferenceManager;
 import android.view.SurfaceHolder;
 
 public class WorkThread extends Thread {
-     
+
     /**
-	 * 
+	 *
 	 */
 	private SurfaceHolder surfaceHolder;
     private boolean runFlag = false;
@@ -67,14 +67,14 @@ public class WorkThread extends Thread {
         }
         if(fpslimit < 5)
         	fpslimit = 5;
-        
+
 		lastDelay = 100;
     }
 
     public void setRunning(boolean run) {
         this.runFlag = run;
     }
-    
+
     @Override
     public void run() {
         Canvas c;
@@ -84,16 +84,16 @@ public class WorkThread extends Thread {
 		int frames = 0;
 		int frameCounter[] = {0, 0, 0, 0, 0};
 		int i = 0;
-        
+
         while (this.runFlag) {
 	            if(firstTime){
 	            	firstTime = false;
 	            	continue;
 	            }
-	            
+
 	            /* FPS CONTROL */
 	            tempTime = System.currentTimeMillis();
-	            
+
 	            try {
 	            	fpslimit = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(host).getString("pref_fpslimittext", "35"));
 	            } catch(NumberFormatException e) {
@@ -101,14 +101,14 @@ public class WorkThread extends Thread {
 	            }
 	            if(fpslimit < 5)
 	            	fpslimit = 5;
-	            
+
 	            if(PreferenceManager.getDefaultSharedPreferences(host).getBoolean("pref_fpslimit", false)) {
 		            lastFrameDuration = tempTime - lastFrameStartingTime;
 		            if(lastFrameDuration > (1000.0f/fpslimit))
 		            	lastDelay = Math.max(0, lastDelay - 25);
 		            else
 		            	lastDelay+= 25;
-		            
+
 		            if(lastDelay == 0) {} // no Sleep
 		            else {
 			            try {// do sleep!
@@ -119,7 +119,7 @@ public class WorkThread extends Thread {
 		            }
 		            lastFrameStartingTime = tempTime;
 	            }
-	            
+
 	            if(tempTime >= fpsUpdateTime) {
 	            	i = (i + 1) % 5;
 		    		fpsUpdateTime += 200;
@@ -128,23 +128,23 @@ public class WorkThread extends Thread {
 	            }
 	            frameCounter[i]++;
 	            /* END OF FPS CONTROL*/
-	            
+
 	            if(host.game.cycle(tempTime))
 	            	host.controls.cycle(tempTime);
 	            host.game.getBoard().cycle(tempTime);
-	            
+
 	            c = null;
 	            try {
-	               
+
 	                c = this.surfaceHolder.lockCanvas(null);
-	                synchronized (this.surfaceHolder) {                   
+	                synchronized (this.surfaceHolder) {
 	                    host.display.doDraw(c, frames);
 	                }
 	            } finally {
-	               
+
 	                if (c != null) {
 	                    this.surfaceHolder.unlockCanvasAndPost(c);
-	                    
+
 	                }
 	            }
         }

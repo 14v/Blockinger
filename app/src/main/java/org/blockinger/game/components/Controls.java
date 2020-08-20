@@ -21,15 +21,15 @@
 
     Diese Datei ist Teil von Blockinger.
 
-    Blockinger ist Freie Software: Sie können es unter den Bedingungen
+    Blockinger ist Freie Software: Sie kÃ¶nnen es unter den Bedingungen
     der GNU General Public License, wie von der Free Software Foundation,
-    Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren
-    veröffentlichten Version, weiterverbreiten und/oder modifizieren.
+    Version 3 der Lizenz oder (nach Ihrer Option) jeder spÃ¤teren
+    verÃ¶ffentlichten Version, weiterverbreiten und/oder modifizieren.
 
-    Blockinger wird in der Hoffnung, dass es nützlich sein wird, aber
-    OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
-    Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
-    Siehe die GNU General Public License für weitere Details.
+    Blockinger wird in der Hoffnung, dass es nÃ¼tzlich sein wird, aber
+    OHNE JEDE GEWÃ„HELEISTUNG, bereitgestellt; sogar ohne die implizite
+    GewÃ¤hrleistung der MARKTFÃ„HIGKEIT oder EIGNUNG FÃœR EINEN BESTIMMTEN ZWECK.
+    Siehe die GNU General Public License fÃ¼r weitere Details.
 
     Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
@@ -51,7 +51,7 @@ import android.preference.PreferenceManager;
 public class Controls extends Component {
 
 	// Constants
-	
+
 	// Stuff
 	private Board board;
 	//private boolean initialized;
@@ -59,7 +59,7 @@ public class Controls extends Component {
 	private int vibrationOffset;
 	private long shortVibeTime;
 	private int[] lineThresholds;
-	
+
 	// Player Controls
 	private boolean playerSoftDrop;
 	private boolean clearPlayerSoftDrop;
@@ -79,15 +79,15 @@ public class Controls extends Component {
 	private int initialVIntervalFactor;
 	private Rect previewBox;
 	private boolean boardTouched;
-	
+
 	public Controls(GameActivity ga) {
 		super(ga);
-		
+
 		lineThresholds = host.getResources().getIntArray(R.array.line_thresholds);
 		shortVibeTime = 0;
-		
+
 		v = (Vibrator) host.getSystemService(Context.VIBRATOR_SERVICE);
-		
+
 		buttonVibrationEnabled = PreferenceManager.getDefaultSharedPreferences(host).getBoolean("pref_vibration_button", false);
 		eventVibrationEnabled = PreferenceManager.getDefaultSharedPreferences(host).getBoolean("pref_vibration_events", false);
 		try {
@@ -117,7 +117,7 @@ public class Controls extends Component {
 		previewBox = null;
 		boardTouched = false;
 	}
-	
+
 	public void vibrateWall() {
 		if (v == null)
 			return;
@@ -127,11 +127,11 @@ public class Controls extends Component {
 			return;
 		v.vibrate(host.game.getMoveInterval() + vibrationOffset);
 	}
-	
+
 	public void cancelVibration() {
 		v.cancel();
 	}
-	
+
 	public void vibrateBottom() {
 		if (v == null)
 			return;
@@ -142,7 +142,7 @@ public class Controls extends Component {
 		v.cancel();
 		v.vibrate(new long[] {0, 5 + vibrationOffset, 30 + vibrationOffset, 20 + vibrationOffset}, -1);
 	}
-	
+
 	public void vibrateShort() {
 		if (v == null)
 			return;
@@ -197,7 +197,7 @@ public class Controls extends Component {
 	}
 
 	public void dropButtonReleased() {
-		
+
 	}
 
 	public void dropButtonPressed() {
@@ -243,25 +243,25 @@ public class Controls extends Component {
 		Board board = host.game.getBoard();
 		int maxLevel = host.game.getMaxLevel();
 
-		
+
 		// Left Rotation
 		if(leftRotation) {
 			leftRotation = false;
 			active.turnLeft(board);
 			host.display.invalidatePhantom();
 		}
-		
+
 		// Right Rotation
 		if(rightRotation) {
 			rightRotation = false;
 			active.turnRight(board);
 			host.display.invalidatePhantom();
 		}
-		
+
 		// Reset Move Time
 		if((!leftMove && !rightMove) && (!continuousLeftMove && !continuousRightMove))
 			host.game.setNextPlayerMoveTime(gameTime);
-		
+
 		// Left Move
 		if(leftMove) {
 			continuousLeftMove = true;
@@ -274,7 +274,7 @@ public class Controls extends Component {
 				vibrateWall();
 				host.game.setNextPlayerMoveTime(gameTime);
 			}
-			
+
 		} else if(continuousLeftMove) {
 			if(gameTime >= host.game.getNextPlayerMoveTime()) {
 				if(active.moveLeft(board)) { // successful move
@@ -292,7 +292,7 @@ public class Controls extends Component {
 				clearLeftMove = false;
 			}
 		}
-		
+
 		// Right Move
 		if(rightMove) {
 			continuousRightMove = true;
@@ -305,7 +305,7 @@ public class Controls extends Component {
 				vibrateWall();
 				host.game.setNextPlayerMoveTime(gameTime); // first interval is doubled!
 			}
-			
+
 		} else if(continuousRightMove) {
 			if(gameTime >= host.game.getNextPlayerMoveTime()) {
 				if(active.moveRight(board)) { // successful move
@@ -323,8 +323,8 @@ public class Controls extends Component {
 				clearRightMove = false;
 			}
 		}
-		
-		
+
+
 		// Hard Drop
 		if(playerHardDrop) {
 			board.interruptClearAnimation();
@@ -334,7 +334,7 @@ public class Controls extends Component {
 			host.game.pieceTransition(eventVibrationEnabled);
 			board.invalidate();
 			playerHardDrop = false;
-			
+
 			if((host.game.getLevel() < maxLevel) && (host.game.getClearedLines() > lineThresholds[Math.min(host.game.getLevel(),maxLevel - 1)]))
 				host.game.nextLevel();
 			host.game.setNextDropTime(gameTime + host.game.getAutoDropInterval());
@@ -357,7 +357,7 @@ public class Controls extends Component {
 				host.game.nextLevel();
 			host.game.setNextDropTime(host.game.getNextPlayerDropTime() + host.game.getAutoDropInterval());
 			host.game.setNextPlayerDropTime(host.game.getNextPlayerDropTime() + initialVIntervalFactor*host.game.getSoftDropInterval());
-			
+
 		// Continuous Soft Drop
 		} else if(continuousSoftDrop) {
 			if(gameTime >= host.game.getNextPlayerDropTime()) {
@@ -374,7 +374,7 @@ public class Controls extends Component {
 					host.game.nextLevel();
 				host.game.setNextDropTime(host.game.getNextPlayerDropTime() + host.game.getAutoDropInterval());
 				host.game.setNextPlayerDropTime(host.game.getNextPlayerDropTime() + host.game.getSoftDropInterval());
-				
+
 			// Autodrop if faster than playerDrop
 			} else if(gameTime >= host.game.getNextDropTime()) {
 				if(!active.drop(board)) {
@@ -395,7 +395,7 @@ public class Controls extends Component {
 				continuousSoftDrop = false;
 				clearPlayerSoftDrop = false;
 			}
-			
+
 		// Autodrop if no playerDrop
 		} else if(gameTime >= host.game.getNextDropTime()) {
 			if(!active.drop(board)) {
@@ -409,7 +409,7 @@ public class Controls extends Component {
 				host.game.nextLevel();
 			host.game.setNextDropTime(host.game.getNextDropTime() + host.game.getAutoDropInterval());
 			host.game.setNextPlayerDropTime(host.game.getNextDropTime());
-			
+
 		} else
 			host.game.setNextPlayerDropTime(gameTime);
 	}
@@ -421,7 +421,7 @@ public class Controls extends Component {
 	public Board getBoard() {
 		return this.board;
 	}
-	
+
 	/**
 	 * unused!
 	 */
@@ -429,7 +429,7 @@ public class Controls extends Component {
 	public void reconnect(GameActivity cont) {
 		super.reconnect(cont);
 		v = (Vibrator) cont.getSystemService(Context.VIBRATOR_SERVICE);
-		
+
 		buttonVibrationEnabled = PreferenceManager.getDefaultSharedPreferences(cont).getBoolean("pref_vibration_button", false);
 		eventVibrationEnabled = PreferenceManager.getDefaultSharedPreferences(cont).getBoolean("pref_vibration_events", false);
 		try {
@@ -451,9 +451,9 @@ public class Controls extends Component {
 	public void boardPressed(float x, float y) {
 		if(previewBox == null)
 			return;
-		
+
 		boardTouched = true;
-		
+
 		if(previewBox.contains((int)x, (int)y))
 			host.game.hold();
 	}
@@ -469,5 +469,5 @@ public class Controls extends Component {
 	public boolean isBoardTouched() {
 		return boardTouched;
 	}
-	
+
 }

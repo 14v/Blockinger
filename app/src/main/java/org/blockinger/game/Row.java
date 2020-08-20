@@ -21,15 +21,15 @@
 
     Diese Datei ist Teil von Blockinger.
 
-    Blockinger ist Freie Software: Sie können es unter den Bedingungen
+    Blockinger ist Freie Software: Sie kÃ¶nnen es unter den Bedingungen
     der GNU General Public License, wie von der Free Software Foundation,
-    Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren
-    veröffentlichten Version, weiterverbreiten und/oder modifizieren.
+    Version 3 der Lizenz oder (nach Ihrer Option) jeder spÃ¤teren
+    verÃ¶ffentlichten Version, weiterverbreiten und/oder modifizieren.
 
-    Blockinger wird in der Hoffnung, dass es nützlich sein wird, aber
-    OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
-    Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
-    Siehe die GNU General Public License für weitere Details.
+    Blockinger wird in der Hoffnung, dass es nÃ¼tzlich sein wird, aber
+    OHNE JEDE GEWÃ„HELEISTUNG, bereitgestellt; sogar ohne die implizite
+    GewÃ¤hrleistung der MARKTFÃ„HIGKEIT oder EIGNUNG FÃœR EINEN BESTIMMTEN ZWECK.
+    Siehe die GNU General Public License fÃ¼r weitere Details.
 
     Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
@@ -52,7 +52,7 @@ public class Row {
 	private int width;
 	private Animator animator;
 	private int fillStatus;
-	
+
 	public Row(int width, Context c) {
 		emptySquare = new Square(Square.type_empty, c);
 		animator = new Animator(c,this);
@@ -65,7 +65,7 @@ public class Row {
 			elements[i] = emptySquare;
 		}
 	}
-	
+
 	public void set(Square s, int i) {
 		if(s.isEmpty())
 			return;
@@ -74,7 +74,7 @@ public class Row {
 			elements[i] = s;
 		}
 	}
-	
+
 	public Square get(int i) {
 		if((i >= 0) && (i < width))
 			return elements[i];
@@ -84,7 +84,7 @@ public class Row {
 	public void set(Square[] squares) {
 		elements = squares;
 		fillStatus = 0;
-		
+
 		if(elements!=null)
 			for(int i = 0; i < width; i++) {
 				if(elements[i]!=null)
@@ -100,26 +100,26 @@ public class Row {
 	public void setBelow(Row row) {
 		this.below = row;
 	}
-	
+
 	public Row below() {
 		return this.below;
 	}
-	
+
 	public Row above() {
 		return this.above;
 	}
-	
+
 	public Row delete() {
 		Row result = this.below;
-		
+
 		if(above!=null)
 			above.setBelow(below);
 		if(below!=null)
 			below.setAbove(above);
-		
+
 		above = null;
 		below = null;
-		
+
 		return result;
 	}
 
@@ -136,41 +136,41 @@ public class Row {
 		}
 		return bm;
 	}
-	
+
 	public boolean isFull() {
 		if(fillStatus >= width)
 			return true;
 		else
 			return false;
 	}
-	
+
 	public void cycle(long time, Board board) {
 		animator.cycle(time, board);
 	}
-	
+
 	public void clear(Board board, int currentDropInterval) {
 		animator.start(board, currentDropInterval);
 	}
-	
+
 	public void finishClear(Board board) {
 		// clear this Row
 		fillStatus = 0;
 		for(int i = 0; i < width; i++) {
 			elements[i] = emptySquare;
 		}
-		
+
 		Row topRow = board.getTopRow();
 
 		// disconnect tempRow
 		above().setBelow(below());
 		below().setAbove(above());
-		
+
 		// insert tempRow on top
 		setBelow(topRow);
 		setAbove(topRow.above());
 		topRow.above().setBelow(this);
 		topRow.setAbove(this);
-		
+
 		board.finishClear(this);
 	}
 

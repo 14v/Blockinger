@@ -21,15 +21,15 @@
 
     Diese Datei ist Teil von Blockinger.
 
-    Blockinger ist Freie Software: Sie können es unter den Bedingungen
+    Blockinger ist Freie Software: Sie kÃ¶nnen es unter den Bedingungen
     der GNU General Public License, wie von der Free Software Foundation,
-    Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren
-    veröffentlichten Version, weiterverbreiten und/oder modifizieren.
+    Version 3 der Lizenz oder (nach Ihrer Option) jeder spÃ¤teren
+    verÃ¶ffentlichten Version, weiterverbreiten und/oder modifizieren.
 
-    Blockinger wird in der Hoffnung, dass es nützlich sein wird, aber
-    OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
-    Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
-    Siehe die GNU General Public License für weitere Details.
+    Blockinger wird in der Hoffnung, dass es nÃ¼tzlich sein wird, aber
+    OHNE JEDE GEWÃ„HELEISTUNG, bereitgestellt; sogar ohne die implizite
+    GewÃ¤hrleistung der MARKTFÃ„HIGKEIT oder EIGNUNG FÃœR EINEN BESTIMMTEN ZWECK.
+    Siehe die GNU General Public License fÃ¼r weitere Details.
 
     Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
@@ -47,7 +47,7 @@ import android.graphics.Canvas;
 
 
 public class Board extends Component {
-	
+
 	private int height;
 	private int width;
 	private Row topRow; // index 0
@@ -58,13 +58,13 @@ public class Board extends Component {
 	private boolean valid;
 	private Bitmap blockMap;
 	private Canvas blockVas;
-	
+
 	public Board(GameActivity ga) {
 		super(ga);
 		width = host.getResources().getInteger(R.integer.spalten);
 		height = host.getResources().getInteger(R.integer.zeilen);
 		valid = false;
-		
+
 		/* Init Board */
 		topRow = new Row(width,host);
 		currentIndex = 0;
@@ -80,16 +80,16 @@ public class Board extends Component {
 		topRow.setAbove(currentRow);
 		currentRow.setBelow(topRow);
 	}
-	
+
 	public void draw(int x, int y, int squareSize, Canvas c){ // top left corner of game board
 		if(topRow == null)
 			throw new RuntimeException("BlockBoard was not initialized!");
-		
+
 		if(valid) {
 			c.drawBitmap(blockMap, x, y, null);
 			return;
 		}
-		
+
 		/* This Block is responsible to prevent the
 		 * java.lang.OutOfMemoryError: bitmap size exceeds VM budget
 		 * Crash.
@@ -107,7 +107,7 @@ public class Board extends Component {
 			}
 			return;
 		}
-		
+
 		blockVas = new Canvas(blockMap);
 		valid = true;
 		tempRow = topRow;
@@ -171,9 +171,9 @@ public class Board extends Component {
 			return;
 		if(square.isEmpty())
 			return;
-		
+
 		valid = false;
-		
+
 		if(currentIndex == y)
 			currentRow.set(square,x);
 		else if(currentIndex < y) {
@@ -191,7 +191,7 @@ public class Board extends Component {
 		// begin at bottom line
 		if(topRow == null)
 			throw new RuntimeException("BlockBoard was not initialized!");
-		
+
 		tempRow = topRow.above();
 		for(int i = 0; i < height; i++) {
 			tempRow.cycle(time, this);
@@ -232,7 +232,7 @@ public class Board extends Component {
 		// begin at bottom line
 		if(topRow == null)
 			throw new RuntimeException("BlockBoard was not initialized!");
-		
+
 		Row interator = topRow.above();
 		for(int i = 0; i < height; i++) {
 			if(interator.interrupt(this)) {

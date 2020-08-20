@@ -21,15 +21,15 @@
 
     Diese Datei ist Teil von Blockinger.
 
-    Blockinger ist Freie Software: Sie können es unter den Bedingungen
+    Blockinger ist Freie Software: Sie kÃ¶nnen es unter den Bedingungen
     der GNU General Public License, wie von der Free Software Foundation,
-    Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren
-    veröffentlichten Version, weiterverbreiten und/oder modifizieren.
+    Version 3 der Lizenz oder (nach Ihrer Option) jeder spÃ¤teren
+    verÃ¶ffentlichten Version, weiterverbreiten und/oder modifizieren.
 
-    Blockinger wird in der Hoffnung, dass es nützlich sein wird, aber
-    OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
-    Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
-    Siehe die GNU General Public License für weitere Details.
+    Blockinger wird in der Hoffnung, dass es nÃ¼tzlich sein wird, aber
+    OHNE JEDE GEWÃ„HELEISTUNG, bereitgestellt; sogar ohne die implizite
+    GewÃ¤hrleistung der MARKTFÃ„HIGKEIT oder EIGNUNG FÃœR EINEN BESTIMMTEN ZWECK.
+    Siehe die GNU General Public License fÃ¼r weitere Details.
 
     Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
@@ -73,13 +73,13 @@ public class Sound implements OnAudioFocusChangeListener {
 	public static final int NO_MUSIC = 0x0;
 	public static final int MENU_MUSIC = 0x1;
 	public static final int GAME_MUSIC = 0x2;
-	
+
 	public Sound(Activity c) {
 		host = c;
-		
+
 		audioCEO = (AudioManager) c.getSystemService(Context.AUDIO_SERVICE);
 		c.setVolumeControlStream(AudioManager.STREAM_MUSIC);
-		
+
 		// Request AudioFocus if The Music Volume is greater than zero
 		requestFocus();
 
@@ -96,7 +96,7 @@ public class Sound implements OnAudioFocusChangeListener {
 		/* Headphone Receiver (when headphone state changes) */
 		intentFilter = new IntentFilter(android.content.Intent.ACTION_HEADSET_PLUG );
 		headsetPlugReceiver = new BroadcastReceiver() {
-			
+
 				public void onReceive(Context context, android.content.Intent intent) {
 					if (intent.getAction().equals(android.content.Intent.ACTION_HEADSET_PLUG)) {
 			            int state = intent.getIntExtra("state", -1);
@@ -115,23 +115,23 @@ public class Sound implements OnAudioFocusChangeListener {
 			            }
 			        }
 				}
-				
+
 			};
 		c.registerReceiver(headsetPlugReceiver, intentFilter);
-		
+
 		/* Ringer Mode Receiver (when the user changes audio mode to silent or back to normal) */
 		intentFilter = new IntentFilter(AudioManager.RINGER_MODE_CHANGED_ACTION);
 		ringerModeReceiver = new BroadcastReceiver() {
-			
+
 			public void onReceive(Context context, android.content.Intent intent) {
 				songtime = getSongtime();
             	Sound.this.pauseMusic();
 				Sound.this.startMusic(musicType,songtime);
 			}
-			
+
 		};
 		c.registerReceiver(ringerModeReceiver,intentFilter);
-		
+
 		soundPool = new SoundPool(c.getResources().getInteger(R.integer.audio_streams),AudioManager.STREAM_MUSIC,0);
 
 		soundID_tetrisSoundPlayer = -1;
@@ -139,18 +139,18 @@ public class Sound implements OnAudioFocusChangeListener {
 		soundID_clearSoundPlayer = -1;
 		soundID_gameOverPlayer = -1;
 		soundID_buttonSoundPlayer = -1;
-		
+
 		songtime = 0;
 		musicType = 0;
 		isMusicReady = false;
 		isInactive = false;
 	}
-	
+
 	private void requestFocus() {
 		SharedPreferences prefs;
 		try{
 			prefs = PreferenceManager.getDefaultSharedPreferences(host);
-				
+
 		} catch(Exception e) {
 			noFocus = true;
 			return;
@@ -175,7 +175,7 @@ public class Sound implements OnAudioFocusChangeListener {
 	public void setInactive(boolean b) {
 		isInactive = b;
 	}
-	
+
 	public void loadEffects() {
 		soundID_tetrisSoundPlayer = soundPool.load(host, R.raw.tetris_free, 1);
 		soundID_dropSoundPlayer = soundPool.load(host, R.raw.drop_free, 1);
@@ -183,15 +183,15 @@ public class Sound implements OnAudioFocusChangeListener {
 		soundID_clearSoundPlayer = soundPool.load(host, R.raw.clear2_free, 1);
 		soundID_gameOverPlayer = soundPool.load(host, R.raw.gameover2_free, 1);
 	}
-	
+
 	public void loadMusic(int type, int startTime) {
-		
+
 		/* Reset previous Music */
 		isMusicReady = false;
 		if(musicPlayer != null)
 			musicPlayer.release();
 		musicPlayer = null;
-		
+
 		/* Check if Music is allowed to start */
 		requestFocus();
 		if(noFocus)
@@ -200,7 +200,7 @@ public class Sound implements OnAudioFocusChangeListener {
 			return;
 		if(audioCEO.getRingerMode() != AudioManager.RINGER_MODE_NORMAL)
 			return;
-		
+
 		/* Start Music */
 		songtime = startTime;
 		musicType = type;
@@ -221,7 +221,7 @@ public class Sound implements OnAudioFocusChangeListener {
 		musicPlayer.seekTo(songtime);
 		isMusicReady = true;
 	}
-	
+
 	public void startMusic(int type, int startTime) {
 		/* Check if Music is allowed to start */
 		requestFocus();
@@ -229,7 +229,7 @@ public class Sound implements OnAudioFocusChangeListener {
 			return;
 		if(isInactive)
 			return;
-		
+
 		if(isMusicReady) {
 			/* NOP */
 		} else {
@@ -238,12 +238,12 @@ public class Sound implements OnAudioFocusChangeListener {
 		if(isMusicReady) {
 			if(audioCEO.getRingerMode() != AudioManager.RINGER_MODE_NORMAL)
 				return;
-			
+
 			musicPlayer.setVolume(0.01f * PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_musicvolume", 60), 0.01f * PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_musicvolume", 60));
 			musicPlayer.start();
 		}
 	}
-	
+
 	public void clearSound() {
 		if(noFocus)
 			return;
@@ -251,14 +251,14 @@ public class Sound implements OnAudioFocusChangeListener {
 			return;
 		soundPool.play(
 			soundID_clearSoundPlayer,
-			0.01f * PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_soundvolume", 60), 
-			0.01f * PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_soundvolume", 60), 
-			1, 
-			0, 
+			0.01f * PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_soundvolume", 60),
+			0.01f * PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_soundvolume", 60),
+			1,
+			0,
 			1.0f
 		);
 	}
-	
+
 	public void buttonSound() {
 		if(noFocus)
 			return;
@@ -268,14 +268,14 @@ public class Sound implements OnAudioFocusChangeListener {
 			return;
 		soundPool.play(
 			soundID_buttonSoundPlayer,
-			0.01f * PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_soundvolume", 60), 
-			0.01f * PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_soundvolume", 60), 
-			1, 
-			0, 
+			0.01f * PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_soundvolume", 60),
+			0.01f * PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_soundvolume", 60),
+			1,
+			0,
 			1.0f
 		);
 	}
-	
+
 	public void dropSound() {
 		if(noFocus)
 			return;
@@ -283,10 +283,10 @@ public class Sound implements OnAudioFocusChangeListener {
 			return;
 		soundPool.play(
 			soundID_dropSoundPlayer,
-			0.01f * PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_soundvolume", 60), 
-			0.01f * PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_soundvolume", 60), 
-			1, 
-			0, 
+			0.01f * PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_soundvolume", 60),
+			0.01f * PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_soundvolume", 60),
+			1,
+			0,
 			1.0f
 		);
 	}
@@ -298,10 +298,10 @@ public class Sound implements OnAudioFocusChangeListener {
 			return;
 		soundPool.play(
 			soundID_tetrisSoundPlayer,
-			0.01f * PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_soundvolume", 60), 
-			0.01f * PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_soundvolume", 60), 
-			1, 
-			0, 
+			0.01f * PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_soundvolume", 60),
+			0.01f * PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_soundvolume", 60),
+			1,
+			0,
 			1.0f
 		);
 	}
@@ -314,10 +314,10 @@ public class Sound implements OnAudioFocusChangeListener {
 		pause(); // pause music to make the end of the game feel more dramatic. hhheheh.
 		soundPool.play(
 			soundID_gameOverPlayer,
-			0.01f * PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_soundvolume", 60), 
-			0.01f * PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_soundvolume", 60), 
-			1, 
-			0, 
+			0.01f * PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_soundvolume", 60),
+			0.01f * PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_soundvolume", 60),
+			1,
+			0,
 			1.0f
 		);
 	}
@@ -325,11 +325,11 @@ public class Sound implements OnAudioFocusChangeListener {
 	public void resume() {
 		if(isInactive)
 			return;
-		
+
 		soundPool.autoResume();
 		startMusic(musicType,songtime);
 	}
-	
+
 	public void pauseMusic() {
 		isMusicReady = false;
 		if(musicPlayer != null) {
@@ -346,7 +346,7 @@ public class Sound implements OnAudioFocusChangeListener {
 		soundPool.autoPause();
 		pauseMusic();
 	}
-	
+
 	public void release() {
 		soundPool.autoPause();
 		soundPool.release();
@@ -373,7 +373,7 @@ public class Sound implements OnAudioFocusChangeListener {
     			try{
     				musicPlayer.setVolume(0.0025f * PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_musicvolume", 60), 0.0025f * PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_musicvolume", 60));
     	        } catch(IllegalStateException e) {
-    				
+
     			}
     		}
         	soundPool.setVolume(soundID_tetrisSoundPlayer, 0.0025f * PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_soundvolume", 60), 0.0025f * PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_soundvolume", 60));
@@ -390,7 +390,7 @@ public class Sound implements OnAudioFocusChangeListener {
     			try{
     				musicPlayer.setVolume(0.01f * PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_musicvolume", 60), 0.01f * PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_musicvolume", 60));
     	        } catch(IllegalStateException e) {
-    				
+
     			}
     		}
     		soundPool.setVolume(soundID_tetrisSoundPlayer, 0.01f * PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_soundvolume", 60), 0.01f * PreferenceManager.getDefaultSharedPreferences(host).getInt("pref_soundvolume", 60));
@@ -410,7 +410,7 @@ public class Sound implements OnAudioFocusChangeListener {
 			try{
 				return musicPlayer.getCurrentPosition();
 			} catch(IllegalStateException e) {
-				
+
 			}
 		}
 		return 0;

@@ -21,15 +21,15 @@
 
     Diese Datei ist Teil von Blockinger.
 
-    Blockinger ist Freie Software: Sie können es unter den Bedingungen
+    Blockinger ist Freie Software: Sie kÃ¶nnen es unter den Bedingungen
     der GNU General Public License, wie von der Free Software Foundation,
-    Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren
-    veröffentlichten Version, weiterverbreiten und/oder modifizieren.
+    Version 3 der Lizenz oder (nach Ihrer Option) jeder spÃ¤teren
+    verÃ¶ffentlichten Version, weiterverbreiten und/oder modifizieren.
 
-    Blockinger wird in der Hoffnung, dass es nützlich sein wird, aber
-    OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
-    Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
-    Siehe die GNU General Public License für weitere Details.
+    Blockinger wird in der Hoffnung, dass es nÃ¼tzlich sein wird, aber
+    OHNE JEDE GEWÃ„HELEISTUNG, bereitgestellt; sogar ohne die implizite
+    GewÃ¤hrleistung der MARKTFÃ„HIGKEIT oder EIGNUNG FÃœR EINEN BESTIMMTEN ZWECK.
+    Siehe die GNU General Public License fÃ¼r weitere Details.
 
     Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
@@ -77,7 +77,7 @@ public class Display extends Component {
 	private Rect textRect;
 	private int textHeight;
 	private Paint popUptextPaint;
-	
+
 	public Display(GameActivity ga) {
 		super(ga);
 		invalidatePhantom();
@@ -91,9 +91,9 @@ public class Display extends Component {
 		prev_top = 1; // unknown at this point!
 		prev_bottom = 1; // unknown at this point!
 		prev_left = 1; // unknown at this point!
-		
+
 		prev_right = 1; // unknown at this point!
-		
+
 		rowOffset = host.getResources().getInteger(R.integer.zeilenoffset);
 		columnOffset = host.getResources().getInteger(R.integer.spaltenoffset);
 
@@ -113,7 +113,7 @@ public class Display extends Component {
 		else
 			textLines = 8;
 	}
-	
+
 	public void doDraw(Canvas c, int fps) {
 		if(c==null)
 			return;
@@ -122,7 +122,7 @@ public class Display extends Component {
 			int fpsenabled = 0;
 			if(PreferenceManager.getDefaultSharedPreferences(host).getBoolean("pref_fps", false))
 				fpsenabled = 1;
-			
+
 			host.game.getBoard().invalidate();
 			//portraitInitialized = false;
 			landscapeInitialized = true;
@@ -154,7 +154,7 @@ public class Display extends Component {
 				textEmptySpacing = ((textBottom - textTop) - (textLines*(textHeight + 3))) / (3 + fpsenabled);
 				if(textEmptySpacing < 10)
 					break;
-				
+
 				textSizeH++;
 				textPaint.setTextSize(textSizeH + 1);
 			}
@@ -162,7 +162,7 @@ public class Display extends Component {
 			textPaint.getTextBounds((String)"Level:32", 0, 6, textRect);
 			textHeight = textRect.height() + 3;
 			textEmptySpacing = ((textBottom - textTop) - (textLines*(textHeight))) / (3 + fpsenabled);
-			
+
 			host.controls.setPreviewRect(new Rect(prev_left,prev_top,prev_right,prev_bottom));
 		}
 
@@ -170,19 +170,19 @@ public class Display extends Component {
 		//paint.setColor(host.getResources().getColor(color.background_dark));
 		//c.drawRect(0, 0, c.getWidth()-1, c.getHeight()-1, paint);
 		c.drawColor(Color.argb(0, 0, 0, 0), android.graphics.PorterDuff.Mode.CLEAR);
-		
+
 		host.game.getBoard().draw(columnOffset, rowOffset, squaresize, c);
-		
+
 		drawActive(columnOffset, rowOffset, squaresize, c);
 
 		if(PreferenceManager.getDefaultSharedPreferences(host).getBoolean("pref_phantom", false))
 			drawPhantom(columnOffset, rowOffset, squaresize, c);
-		
+
 	    drawGrid(columnOffset, rowOffset, gridColumnBorder, gridRowBorder, c);
-		
+
 	    if(host.controls.isBoardTouched())
 	    	drawTouchIndicator();
-	    
+
 	    drawPreview(prev_left, prev_top, prev_right, prev_bottom, c);
 
 	    drawTextFillBox(c, fps);
@@ -196,7 +196,7 @@ public class Display extends Component {
 	}
 
 	private void drawGrid(int x, int y, int xBorder, int yBorder, Canvas c) {
-		
+
 		paint.setColor(host.getResources().getColor(color.holo_blue_dark));
         for (int zeilePixel = 0; zeilePixel <= rows; zeilePixel ++) {
             c.drawLine(x, y + zeilePixel*squaresize, xBorder, y + zeilePixel*squaresize, paint);
@@ -217,10 +217,10 @@ public class Display extends Component {
 		//Background
 		//paint.setColor(host.getResources().getColor(color.background_dark));
 		//c.drawRect(left, top, right, bottom, paint);
-		
+
 		// Piece
 		drawPreview(left, top, squaresize, c);
-		
+
 		// Grid Lines
 		paint.setColor(host.getResources().getColor(color.holo_blue_dark));
         for (int zeilePixel = 0; zeilePixel <= 4; zeilePixel ++) {
@@ -229,7 +229,7 @@ public class Display extends Component {
         for (int spaltePixel = 0; spaltePixel <= 4; spaltePixel ++) {
             c.drawLine(left + spaltePixel*squaresize, top, left + spaltePixel*squaresize, bottom, paint);
         }
-        
+
         // Border
 		paint.setColor(host.getResources().getColor(color.background_light));
 		c.drawLine(left, top, right, top, paint);
@@ -238,8 +238,8 @@ public class Display extends Component {
 		c.drawLine(right, bottom, left, bottom, paint);
 	}
 
-	private void drawTextFillBox(Canvas c, int fps) {	
-		
+	private void drawTextFillBox(Canvas c, int fps) {
+
 	    // draw Level Text
 		c.drawText(host.getResources().getString(R.string.level_title), textLeft, textTop + textHeight, textPaint);
 		c.drawText(host.game.getLevelString(), textLeft, textTop + 2*textHeight, textPaint);
@@ -262,7 +262,7 @@ public class Display extends Component {
 		c.drawText(host.getResources().getString(R.string.fps_title), textLeft, textTop + 9*textHeight + 4*textEmptySpacing, textPaint);
 		c.drawText("" + fps, textLeft, textTop + 10*textHeight + 4*textEmptySpacing, textPaint);
 	}
-	
+
 	private void drawActive(int spaltenOffset, int zeilenOffset, int spaltenAbstand,
 			Canvas c) {
 		host.game.getActivePiece().drawOnBoard(spaltenOffset, zeilenOffset, spaltenAbstand, c);
@@ -274,21 +274,21 @@ public class Display extends Component {
 		int y = active.getY();
 		int x = active.getX();
 		active.setPhantom(true);
-		
+
 		if(dropPhantom) {
 			int backup__currentRowIndex = host.game.getBoard().getCurrentRowIndex();
 			Row backup__currentRow = host.game.getBoard().getCurrentRow();
 			int cnt = y+1;
-			
+
 			while(active.setPositionSimpleCollision(x, cnt, host.game.getBoard())) {
 				cnt++;
 			}
-			
+
 			 host.game.getBoard().setCurrentRowIndex(backup__currentRowIndex);
 			 host.game.getBoard().setCurrentRow(backup__currentRow);
 		} else
 			active.setPositionSimple(x, prevPhantomY);
-		
+
 		prevPhantomY = active.getY();
 		active.drawOnBoard(spaltenOffset, zeilenOffset, spaltenAbstand, c);
 		active.setPositionSimple(x, y);
@@ -302,10 +302,10 @@ public class Display extends Component {
 	}
 
 	private void drawPopupText(Canvas c) {
-		
+
 		final int offset = 6;
 		final int diagonaloffset = 6;
-		
+
 		String text = host.game.getPopupString();
 		popUptextPaint.setTextSize(host.game.getPopupSize());
 		popUptextPaint.setColor(host.getResources().getColor(color.black));
@@ -313,7 +313,7 @@ public class Display extends Component {
 
 		int left = columnOffset + ((int)columns*squaresize/2) - ((int)popUptextPaint.measureText(text)/2); // middle minus half text width
 		int top = c.getHeight()/2;
-		
+
 		c.drawText(text, offset+left, top, popUptextPaint); // right
 		c.drawText(text, diagonaloffset+left, diagonaloffset+top, popUptextPaint); // bottom right
 		c.drawText(text, left, offset+top, popUptextPaint); // bottom
@@ -326,7 +326,7 @@ public class Display extends Component {
 		popUptextPaint.setColor(host.game.getPopupColor());
 		popUptextPaint.setAlpha(host.game.getPopupAlpha());
 		c.drawText(text, left, top, popUptextPaint);
-		
+
 	}
 
 	public void invalidatePhantom() {

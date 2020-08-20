@@ -21,15 +21,15 @@
 
     Diese Datei ist Teil von Blockinger.
 
-    Blockinger ist Freie Software: Sie können es unter den Bedingungen
+    Blockinger ist Freie Software: Sie kÃ¶nnen es unter den Bedingungen
     der GNU General Public License, wie von der Free Software Foundation,
-    Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren
-    veröffentlichten Version, weiterverbreiten und/oder modifizieren.
+    Version 3 der Lizenz oder (nach Ihrer Option) jeder spÃ¤teren
+    verÃ¶ffentlichten Version, weiterverbreiten und/oder modifizieren.
 
-    Blockinger wird in der Hoffnung, dass es nützlich sein wird, aber
-    OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
-    Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
-    Siehe die GNU General Public License für weitere Details.
+    Blockinger wird in der Hoffnung, dass es nÃ¼tzlich sein wird, aber
+    OHNE JEDE GEWÃ„HELEISTUNG, bereitgestellt; sogar ohne die implizite
+    GewÃ¤hrleistung der MARKTFÃ„HIGKEIT oder EIGNUNG FÃœR EINEN BESTIMMTEN ZWECK.
+    Siehe die GNU General Public License fÃ¼r weitere Details.
 
     Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
@@ -68,7 +68,7 @@ public abstract class Piece {
 	private Canvas cvPhantom;
 	private Bitmap bmPhantom;
 	private boolean isPhantom;
-	
+
 	/**
 	 * Always call super(); first.
 	 * @param width
@@ -81,9 +81,9 @@ public abstract class Piece {
 		y = 0;
 		active = false;
 		isPhantom = false;
-		
+
 		emptySquare =  new Square(Square.type_empty,c);
-		
+
 		pattern = new Square[dim][dim]; // empty piece
 		rotated = new Square[dim][dim];
 		for(int i = 0; i < dim; i++) {
@@ -93,7 +93,7 @@ public abstract class Piece {
 			}
 		}
 	}
-	
+
 	public void reset(Context c) {
 		x = c.getResources().getInteger(R.integer.piece_start_x);
 		y = 0;
@@ -104,16 +104,16 @@ public abstract class Piece {
 			}
 		}
 	}
-	
+
 	public void setActive(boolean b) {
 		active = b;
 		reDraw();
 	}
-	
+
 	public boolean isActive() {
 		return active;
 	}
-	
+
 	public void place(Board board) {
 		active = false;
 		for(int i = 0; i < dim; i++) {
@@ -125,7 +125,7 @@ public abstract class Piece {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return true if movement was successfull.
 	 */
 	public boolean setPosition(int x_new, int y_new, boolean noInterrupt, Board board) {
@@ -164,7 +164,7 @@ public abstract class Piece {
 		y = y_new;
 		return true;
 	}
-	
+
 	/**
 	 * @return true if rotation was successfull.
 	 */
@@ -176,7 +176,7 @@ public abstract class Piece {
 	public abstract boolean turnRight(Board board);
 
 	/**
-	 * 
+	 *
 	 * @return true if movement to the left was successfull.
 	 */
 	public boolean moveLeft(Board board) {
@@ -186,7 +186,7 @@ public abstract class Piece {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return true if movement to the right was successfull.
 	 */
 	public boolean moveRight(Board board) {
@@ -194,9 +194,9 @@ public abstract class Piece {
 			return true;
 		return setPosition(x + 1, y, false, board);
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return true if drop was successfull. Otherwise the ground or other pieces was hit.
 	 */
 	public boolean drop(Board board) {
@@ -214,9 +214,9 @@ public abstract class Piece {
 		}
 		return i;
 	}
-	
+
 	protected void reDraw() {
-		
+
 		bm = Bitmap.createBitmap(squareSize*dim, squareSize*dim, Bitmap.Config.ARGB_8888);
 		cv = new Canvas(bm);
 		for(int i = 0; i < dim; i++) {
@@ -237,9 +237,9 @@ public abstract class Piece {
 			}
 		}
 	}
-	
+
 	/** draw on actual position
-	 * 
+	 *
 	 * @param xOffset board x offset
 	 * @param yOffset board y offset
 	 * @param squareSize
@@ -258,7 +258,7 @@ public abstract class Piece {
 		else
 			c.drawBitmap(bm, x*squareSize + xOffset, y*squareSize + yOffset, null);
 	}
-	
+
 	// draw on preview position
 	public void drawOnPreview(int xpos, int ypos, int ss, Canvas c) {
 		if(ss != squareSize) {
@@ -300,7 +300,7 @@ public abstract class Piece {
 						if(!pattern[i][j].isEmpty() && !board.get(x_new+j,y_new+i).isEmpty())
 							return false;
 					}
-					
+
 				}
 			}
 		}

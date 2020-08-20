@@ -21,15 +21,15 @@
 
     Diese Datei ist Teil von Blockinger.
 
-    Blockinger ist Freie Software: Sie können es unter den Bedingungen
+    Blockinger ist Freie Software: Sie kÃ¶nnen es unter den Bedingungen
     der GNU General Public License, wie von der Free Software Foundation,
-    Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren
-    veröffentlichten Version, weiterverbreiten und/oder modifizieren.
+    Version 3 der Lizenz oder (nach Ihrer Option) jeder spÃ¤teren
+    verÃ¶ffentlichten Version, weiterverbreiten und/oder modifizieren.
 
-    Blockinger wird in der Hoffnung, dass es nützlich sein wird, aber
-    OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
-    Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
-    Siehe die GNU General Public License für weitere Details.
+    Blockinger wird in der Hoffnung, dass es nÃ¼tzlich sein wird, aber
+    OHNE JEDE GEWÃ„HELEISTUNG, bereitgestellt; sogar ohne die implizite
+    GewÃ¤hrleistung der MARKTFÃ„HIGKEIT oder EIGNUNG FÃœR EINEN BESTIMMTEN ZWECK.
+    Siehe die GNU General Public License fÃ¼r weitere Details.
 
     Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
@@ -64,17 +64,17 @@ import android.widget.TextView;
 public class MainActivity extends ListActivity {
 
 	public static final int SCORE_REQUEST = 0x0;
-	
+
 	/** This key is used to access the player name, which is returned as an Intent from the gameactivity upon completion (gameover).
 	 *  The Package Prefix is mandatory for Intent data
 	 */
 	public static final String PLAYERNAME_KEY = "org.blockinger.game.activities.playername";
-	
+
 	/** This key is used to access the player name, which is returned as an Intent from the gameactivity upon completion (gameover).
 	 *  The Package Prefix is mandatory for Intent data
 	 */
 	public static final String SCORE_KEY = "org.blockinger.game.activities.score";
-	
+
 	public ScoreDataSource datasource;
 	private SimpleCursorAdapter adapter;
 	private AlertDialog.Builder startLevelDialog;
@@ -84,18 +84,18 @@ public class MainActivity extends ListActivity {
 	private SeekBar leveldialogBar;
 	private TextView leveldialogtext;
 	private Sound sound;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		PreferenceManager.setDefaultValues(this, R.xml.simple_preferences, true);
 		PreferenceManager.setDefaultValues(this, R.xml.advanced_preferences, true);
-		
+
 		/* Create Music */
 		sound = new Sound(this);
 		sound.startMusic(Sound.MENU_MUSIC, 0);
-		
+
 		/* Database Management */
 		Cursor mc;
 	    datasource = new ScoreDataSource(this);
@@ -111,7 +111,7 @@ public class MainActivity extends ListActivity {
 	        new int[] {R.id.text1, R.id.text2},
 	        SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
 	    setListAdapter(adapter);
-	    
+
 	    /* Create Startlevel Dialog */
 	    startLevel = 0;
 	    startLevelDialog = new AlertDialog.Builder(this);
@@ -129,7 +129,7 @@ public class MainActivity extends ListActivity {
 				MainActivity.this.start();
 			}
 		});
-	    
+
 		/* Create Donate Dialog */
 	    donateDialog = new AlertDialog.Builder(this);
 	    donateDialog.setTitle(R.string.pref_donate_title);
@@ -157,7 +157,7 @@ public class MainActivity extends ListActivity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -184,7 +184,7 @@ public class MainActivity extends ListActivity {
 				return super.onOptionsItemSelected(item);
 		}
 	}
-	
+
 	public void start() {
 		Intent intent = new Intent(this, GameActivity.class);
 		Bundle b = new Bundle();
@@ -194,7 +194,7 @@ public class MainActivity extends ListActivity {
 		intent.putExtras(b); //Put your id to your next Intent
 		startActivityForResult(intent,SCORE_REQUEST);
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(requestCode != SCORE_REQUEST)
@@ -229,7 +229,7 @@ public class MainActivity extends ListActivity {
 			@Override
 			public void onStopTrackingTouch(SeekBar arg0) {
 			}
-			
+
 		});
 		leveldialogBar.setProgress(startLevel);
 		leveldialogtext.setText("" + startLevel);
@@ -245,14 +245,14 @@ public class MainActivity extends ListActivity {
 		intent.putExtras(b); //Put your id to your next Intent
 		startActivityForResult(intent,SCORE_REQUEST);
     }
-    
+
     @Override
     protected void onPause() {
     	super.onPause();
     	sound.pause();
     	sound.setInactive(true);
     };
-    
+
     @Override
     protected void onStop() {
     	super.onStop();
@@ -260,7 +260,7 @@ public class MainActivity extends ListActivity {
     	sound.setInactive(true);
     	datasource.close();
     };
-    
+
     @Override
     protected void onDestroy() {
     	super.onDestroy();
@@ -268,7 +268,7 @@ public class MainActivity extends ListActivity {
     	sound = null;
     	datasource.close();
     };
-    
+
     @Override
     protected void onResume() {
     	super.onResume();
@@ -277,7 +277,7 @@ public class MainActivity extends ListActivity {
     	datasource.open();
 	    Cursor cursor = datasource.getCursor();
 	    adapter.changeCursor(cursor);
-	    
+
 	    if(!GameState.isFinished()) {
 	    	((Button)findViewById(R.id.resumeButton)).setEnabled(true);
 	    	((Button)findViewById(R.id.resumeButton)).setTextColor(getResources().getColor(R.color.square_error));
