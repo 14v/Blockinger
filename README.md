@@ -5,6 +5,8 @@ Music License: Creative Commons BY-NC-SA 3.0 DE
 Artwork and Sound Effects License: GNU GENERAL PUBLIC LICENSE Version 3
 Software License: GNU GENERAL PUBLIC LICENSE Version 3
 
+![Main Game](ScreenMocks/Blockinger-01.png)
+
 Scoring
 -------
 Basic points per cleared line are:
