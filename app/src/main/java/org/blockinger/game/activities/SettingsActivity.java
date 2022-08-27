@@ -1,20 +1,18 @@
 package org.blockinger.game.activities;
 
-import org.blockinger.game.R;
-
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.media.AudioManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
+import org.blockinger.game.R;
 
 public class SettingsActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener, OnPreferenceClickListener {
 
@@ -26,10 +24,8 @@ public class SettingsActivity extends PreferenceActivity implements OnSharedPref
 
 		addPreferencesFromResource(R.xml.simple_preferences);
 
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-	        ActionBar actionBar = getActionBar();
-	        actionBar.setDisplayHomeAsUpEnabled(true);
-	    }
+		ActionBar actionBar = getActionBar();
+		if(actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
 
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 

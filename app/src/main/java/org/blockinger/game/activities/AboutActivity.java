@@ -37,19 +37,17 @@
 
 package org.blockinger.game.activities;
 
-import org.blockinger.game.R;
-
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.PreferenceActivity;
 import android.preference.Preference.OnPreferenceClickListener;
+import android.preference.PreferenceActivity;
 import android.view.MenuItem;
+import org.blockinger.game.R;
 
 public class AboutActivity extends PreferenceActivity {
 
@@ -61,10 +59,8 @@ public class AboutActivity extends PreferenceActivity {
 
 		addPreferencesFromResource(R.xml.about_menu);
 
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-	        ActionBar actionBar = getActionBar();
-	        actionBar.setDisplayHomeAsUpEnabled(true);
-	    }
+		ActionBar actionBar = getActionBar();
+		if(actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
 
 
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);

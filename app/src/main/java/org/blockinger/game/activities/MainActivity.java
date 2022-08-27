@@ -37,29 +37,29 @@
 
 package org.blockinger.game.activities;
 
-import org.blockinger.game.R;
-import org.blockinger.game.components.GameState;
-import org.blockinger.game.components.Sound;
-import org.blockinger.game.db.HighscoreOpenHelper;
-import org.blockinger.game.db.ScoreDataSource;
-
-import android.net.Uri;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.support.v4.widget.SimpleCursorAdapter;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.SeekBar;
 import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+import androidx.cursoradapter.widget.SimpleCursorAdapter;
+import org.blockinger.game.R;
+import org.blockinger.game.components.GameState;
+import org.blockinger.game.components.Sound;
+import org.blockinger.game.db.HighscoreOpenHelper;
+import org.blockinger.game.db.ScoreDataSource;
 
 public class MainActivity extends ListActivity {
 
@@ -89,6 +89,9 @@ public class MainActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			setActionBar(findViewById(R.id.toolbar));
+		}
 		PreferenceManager.setDefaultValues(this, R.xml.simple_preferences, true);
 		PreferenceManager.setDefaultValues(this, R.xml.advanced_preferences, true);
 

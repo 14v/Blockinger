@@ -37,6 +37,17 @@ b * Copyright 2013 Simon Willeke
 
 package org.blockinger.game.activities;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.ImageButton;
+import androidx.fragment.app.FragmentActivity;
 import org.blockinger.game.BlockBoardView;
 import org.blockinger.game.R;
 import org.blockinger.game.WorkThread;
@@ -44,19 +55,6 @@ import org.blockinger.game.components.Controls;
 import org.blockinger.game.components.Display;
 import org.blockinger.game.components.GameState;
 import org.blockinger.game.components.Sound;
-
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentActivity;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.Window;
-import android.widget.ImageButton;
-import android.widget.Button;
-import android.view.View.OnTouchListener;
 
 
 public class GameActivity extends FragmentActivity {
