@@ -99,7 +99,7 @@ public class Display extends Component {
 
 		textPaint = new Paint();
 		textRect = new Rect();
-		textPaint.setColor(host.getResources().getColor(color.white));
+		textPaint.setColor(host.getResources().getColor(R.color.display_text));
 		textPaint.setAlpha(host.getResources().getInteger(R.integer.textalpha));
 		textPaint.setAntiAlias(PreferenceManager.getDefaultSharedPreferences(host).getBoolean("pref_antialiasing", true));
 		popUptextPaint = new Paint();
@@ -206,7 +206,7 @@ public class Display extends Component {
         }
 
 		//draw Border
-		paint.setColor(host.getResources().getColor(color.background_light));
+		paint.setColor(host.getResources().getColor(R.color.display_grid_border));
 		c.drawLine(x, y, x, yBorder, paint);
 		c.drawLine(x, y, xBorder, y, paint);
 		c.drawLine(xBorder, yBorder, xBorder, y, paint);
@@ -222,7 +222,7 @@ public class Display extends Component {
 		drawPreview(left, top, squaresize, c);
 
 		// Grid Lines
-		paint.setColor(host.getResources().getColor(color.holo_blue_dark));
+		paint.setColor(host.getResources().getColor(R.color.display_grid_lines));
         for (int zeilePixel = 0; zeilePixel <= 4; zeilePixel ++) {
             c.drawLine(left, top + zeilePixel*squaresize, right, top + zeilePixel*squaresize, paint);
         }
@@ -231,7 +231,7 @@ public class Display extends Component {
         }
 
         // Border
-		paint.setColor(host.getResources().getColor(color.background_light));
+		paint.setColor(host.getResources().getColor(R.color.display_grid_border));
 		c.drawLine(left, top, right, top, paint);
 		c.drawLine(left, top, left, bottom, paint);
 		c.drawLine(right, bottom, right, top, paint);

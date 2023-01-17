@@ -44,4 +44,9 @@
     <color name="holo_grey">#FF4D4D4D</color>
     <!-- 64,128,128 -->
 
+   <!--Night and older API 29 dark theme colors-->
+   <color name="display_grid_lines">@android:color/background_light</color>
+   <color name="display_grid_border">@android:color/holo_blue_dark</color>
+   <color name="display_text">@android:color/white</color>
+
 </resources>

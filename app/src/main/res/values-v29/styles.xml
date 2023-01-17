@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<resources>
 
 <!-- 
     Copyright 2013 Simon Willeke
@@ -36,35 +36,14 @@
     Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
   -->
+ 
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/blockinger_list_item"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:paddingStart="8dp"
-    android:paddingLeft="8dp">
+    <!--
+        Base application theme for API 14+. This theme completely replaces
+        AppBaseTheme from BOTH res/values/styles.xml and
+        res/values-v11/styles.xml on API 14+ devices.
+    -->
+    <style name="AppBaseTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    </style>
 
-    <TextView
-        android:id="@+id/text1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="right"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        tools:text="10000"/>
-
-    <TextView
-        android:id="@+id/text2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_weight="2"
-        android:textSize="18sp"
-        android:textStyle="normal"
-        tools:text="@string/anonymous"/>
-
-</LinearLayout>
+</resources>
