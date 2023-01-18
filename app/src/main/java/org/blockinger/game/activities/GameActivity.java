@@ -47,6 +47,9 @@ import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.fragment.app.FragmentActivity;
 import org.blockinger.game.BlockBoardView;
 import org.blockinger.game.R;
@@ -70,17 +73,22 @@ public class GameActivity extends FragmentActivity {
 	public static final int NEW_GAME = 0;
 	public static final int RESUME_GAME = 1;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		if(PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_layoutswap", false)) {
-			setContentView(R.layout.activity_game_alt);
-			layoutSwap = true;
-		} else {
-			setContentView(R.layout.activity_game);
-			layoutSwap = false;
-		}
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        WindowInsetsControllerCompat insetsController =
+                WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
+        insetsController.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+        insetsController.hide(WindowInsetsCompat.Type.navigationBars());
+
+        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_layoutswap", false)) {
+            setContentView(R.layout.activity_game_alt);
+            layoutSwap = true;
+        } else {
+            setContentView(R.layout.activity_game);
+            layoutSwap = false;
+        }
 
 		/* Read Starting Arguments */
 		Bundle b = getIntent().getExtras();

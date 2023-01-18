@@ -78,7 +78,7 @@
     <integer name="popup_decay">300</integer>
    
     <integer name="clearAnimation_enableFlash">1</integer>
-    <integer name="clearAnimation_flashCount">3</integer>
+    <integer name="clearAnimation_flashCount">1</integer>
     <integer name="clearAnimation_flashInterval">200</integer>
     <integer name="clearAnimation_enableBurst">0</integer>
     <integer name="clearAnimation_burstDuration">200</integer>
