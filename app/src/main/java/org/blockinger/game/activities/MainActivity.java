@@ -57,8 +57,14 @@ import androidx.cursoradapter.widget.SimpleCursorAdapter;
 import org.blockinger.game.R;
 import org.blockinger.game.components.GameState;
 import org.blockinger.game.components.Sound;
-import org.blockinger.game.db.HighscoreOpenHelper;
 import org.blockinger.game.db.ScoreDataSource;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
+import static org.blockinger.game.db.HighscoreOpenHelper.*;
 
 public class MainActivity extends ListActivity {
 
@@ -101,19 +107,40 @@ public class MainActivity extends ListActivity {
         sound.startMusic(Sound.MENU_MUSIC, 0);
 
         /* Database Management */
-        Cursor mc;
         datasource = new ScoreDataSource(this);
         datasource.open();
-        mc = datasource.getCursor();
+        Cursor cursor = datasource.getCursor();
         // Use the SimpleCursorAdapter to show the
         // elements in a ListView
         adapter = new SimpleCursorAdapter(
-				this,
+                this,
                 R.layout.blockinger_list_item,
-                mc,
-                new String[]{HighscoreOpenHelper.COLUMN_SCORE, HighscoreOpenHelper.COLUMN_PLAYERNAME},
-                new int[]{R.id.text1, R.id.text2},
+                cursor,
+                new String[]{COLUMN_SCORE, COLUMN_PLAYERNAME, COLUMN_DATE},
+                new int[]{R.id.list_item_score, R.id.list_item_player_name, R.id.list_item_date},
                 SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        adapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
+            private final SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd HH:mm", Locale.US);
+
+            @Override
+            public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+                if (view.getId() == R.id.list_item_date) {
+                    long dateTime = cursor.getLong(columnIndex);
+                    Date date = new Date();
+                    date.setTime(dateTime);
+                    Calendar yearsAgoCalendar = Calendar.getInstance();
+                    yearsAgoCalendar.set(Calendar.YEAR, 2000);
+
+                    String dateString;
+                    if (date.before(yearsAgoCalendar.getTime())) dateString = getString(R.string.main_years_ago);
+                    else dateString = sdf.format(date);
+
+                    ((TextView) view).setText(dateString);
+                    return true;
+                }
+                return false;
+            }
+        });
         setListAdapter(adapter);
 
         /* Create Startlevel Dialog */
@@ -210,7 +237,7 @@ public class MainActivity extends ListActivity {
         long score = data.getLongExtra(SCORE_KEY, 0);
 
         datasource.open();
-        datasource.createScore(score, playerName);
+        datasource.createScore(score, playerName, new Date());
     }
 
 
@@ -257,7 +284,7 @@ public class MainActivity extends ListActivity {
         sound.setInactive(true);
     }
 
-	@Override
+    @Override
     protected void onStop() {
         super.onStop();
         sound.pause();
@@ -265,7 +292,7 @@ public class MainActivity extends ListActivity {
         datasource.close();
     }
 
-	@Override
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         sound.release();
@@ -273,7 +300,7 @@ public class MainActivity extends ListActivity {
         datasource.close();
     }
 
-	@Override
+    @Override
     protected void onResume() {
         super.onResume();
         sound.setInactive(false);

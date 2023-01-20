@@ -43,14 +43,21 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.Date;
+
+import static org.blockinger.game.db.HighscoreOpenHelper.*;
+
 public class ScoreDataSource {
 
     // Database fields
     private SQLiteDatabase database;
     private final HighscoreOpenHelper dbHelper;
-    private final String[] allColumns = {HighscoreOpenHelper.COLUMN_ID,
-            HighscoreOpenHelper.COLUMN_SCORE,
-            HighscoreOpenHelper.COLUMN_PLAYERNAME};
+    private final String[] allColumns = {
+            COLUMN_ID,
+            COLUMN_SCORE,
+            COLUMN_PLAYERNAME,
+            COLUMN_DATE,
+    };
 
     public ScoreDataSource(Context context) {
         dbHelper = new HighscoreOpenHelper(context);
@@ -64,14 +71,15 @@ public class ScoreDataSource {
         dbHelper.close();
     }
 
-    public void createScore(long score, String playerName) {
+    public void createScore(long score, String playerName, Date date) {
         ContentValues values = new ContentValues();
-        values.put(HighscoreOpenHelper.COLUMN_SCORE, score);
-        values.put(HighscoreOpenHelper.COLUMN_PLAYERNAME, playerName);
-        long insertId = database.insert(HighscoreOpenHelper.TABLE_HIGHSCORES, null, values);
-        Cursor cursor = database.query(HighscoreOpenHelper.TABLE_HIGHSCORES,
-                allColumns, HighscoreOpenHelper.COLUMN_ID + " = " + insertId, null,
-                null, null, HighscoreOpenHelper.COLUMN_SCORE + " DESC");
+        values.put(COLUMN_SCORE, score);
+        values.put(COLUMN_PLAYERNAME, playerName);
+        values.put(COLUMN_DATE, date.getTime());
+        long insertId = database.insert(TABLE_HIGHSCORES, null, values);
+        Cursor cursor = database.query(TABLE_HIGHSCORES,
+                allColumns, COLUMN_ID + " = " + insertId, null,
+                null, null, COLUMN_SCORE + " DESC");
         cursor.moveToFirst();
         cursor.close();
     }
@@ -79,13 +87,13 @@ public class ScoreDataSource {
     public void deleteScore(Score score) {
         long id = score.id;
         //System.out.println("Comment deleted with id: " + id);
-        database.delete(HighscoreOpenHelper.TABLE_HIGHSCORES, HighscoreOpenHelper.COLUMN_ID
+        database.delete(TABLE_HIGHSCORES, COLUMN_ID
                 + " = " + id, null);
     }
 
     public Cursor getCursor() {
-        return database.query(HighscoreOpenHelper.TABLE_HIGHSCORES,
-                allColumns, null, null, null, null, HighscoreOpenHelper.COLUMN_SCORE + " DESC");
+        return database.query(TABLE_HIGHSCORES,
+                allColumns, null, null, null, null, COLUMN_SCORE + " DESC");
     }
 
 }
